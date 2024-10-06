@@ -1,7 +1,8 @@
 using System;
+using UnityEngine;
 
-public interface IDestroyable
+public interface IDestroyable<T> 
+    where T : MonoBehaviour
 {
-    public event Action<IDestroyable> Disabled;
-    public event Action<IDestroyable> Destroyed;
+    public event Action<T> Disabled;
 }

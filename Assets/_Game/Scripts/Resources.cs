@@ -1,19 +1,19 @@
 using System;
 using UnityEngine;
 
-public class Resources : MonoBehaviour, IDestroyable
+public class Resources : MonoBehaviour, IDestroyable<Resources>, IGrabable<Resources>
 {
     [SerializeField] private int _startValue = 5;
 
     private int _value;
 
-    public event Action<IDestroyable> Disabled;
-    public event Action<IDestroyable> Destroyed;
+    private bool _isActive = true;
 
-    private void OnDestroy()
-    {
-        Destroyed?.Invoke(this);
-    }
+    public event Action<Resources> Grabbed;
+    public event Action<Resources> Disabled;
+
+    public bool IsActive => _isActive;
+    public int Value => _value;
 
     private void Start()
     {
@@ -25,24 +25,31 @@ public class Resources : MonoBehaviour, IDestroyable
         _value = _startValue;
         transform.position = position;
         transform.rotation = quaternion;
+        _isActive = true;
     }
 
-    public int Collect(int collectedValue)
+    //public int Collect(int collectedValue)
+    //{
+    //    if (collectedValue < 0)
+    //        throw new ArgumentOutOfRangeException();
+
+    //    int resultCollectedValue = _value >= collectedValue ? collectedValue : _value;
+
+    //    _value -= resultCollectedValue;
+
+    //    if (_value == 0)
+    //        SelfDestroy();
+
+    //    return resultCollectedValue;
+    //}
+
+    public void Grab()
     {
-        if (collectedValue < 0)
-            throw new ArgumentOutOfRangeException();
-
-        int resultCollectedValue = _value >= collectedValue ? collectedValue : _value;
-
-        _value -= resultCollectedValue;
-
-        if (_value == 0)
-            SelfDestroy();
-
-        return resultCollectedValue;
+        _isActive = false;
+        Grabbed?.Invoke(this);
     }
 
-    private void SelfDestroy()
+    public void SelfDestroy()
     {
         Disabled?.Invoke(this);
     }

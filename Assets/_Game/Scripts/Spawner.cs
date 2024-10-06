@@ -2,66 +2,28 @@ using System;
 using UnityEngine;
 
 public abstract class Spawner<T> : MonoBehaviour
-    where T : MonoBehaviour, IDestroyable
+    where T : MonoBehaviour, IDestroyable<T>
 {
     [SerializeField] private ObjectPool<T> Pool;
 
-    public event Action<T> Instatiated;
-    public event Action<T> Spawned;
-
-    private void OnEnable()
-    {
-        Instatiated += AddListeners;
-    }
-
-    private void OnDisable()
-    {
-        Instatiated -= AddListeners;
-    }
+    public event Action<T> ObjectSpawned;
+    public event Action<T> ObjectDisabled;
 
     public virtual T Spawn()
     {
-        T newObject = Pool.Get(out bool isInstantiated);
+        T newObject = Pool.Get();
 
-        if (isInstantiated)
-        {
-            Instatiated?.Invoke(newObject);
-        }
+        newObject.Disabled += OnDisabled;
 
-        Spawned?.Invoke(newObject);
+        ObjectSpawned?.Invoke(newObject);
+
         return newObject;
     }
 
-    public virtual void AddListeners(T instantiatedObject)
+    private void OnDisabled(T obj)
     {
-        instantiatedObject.Disabled += PutInPull;
-        instantiatedObject.Destroyed += RemoveListeners;
-    }
-
-    public virtual void RemoveListeners(IDestroyable destroyableObject)
-    {
-        T poolObject = Convert(destroyableObject);
-
-        if (poolObject != null)
-        {
-            poolObject.Disabled += PutInPull;
-            poolObject.Destroyed += RemoveListeners;
-        }
-    }
-
-    private T Convert(IDestroyable destroyableObject)
-    {
-        if (destroyableObject is T poolObject)
-            return poolObject;
-
-        return null;
-    }
-
-    private void PutInPull(IDestroyable destroyableObject)
-    {
-        T putedObject = Convert(destroyableObject);
-
-        if (putedObject != null)
-            Pool.Put(putedObject);
+        obj.Disabled -= OnDisabled;
+        ObjectDisabled?.Invoke(obj);
+        Pool.Put(obj);
     }
 }

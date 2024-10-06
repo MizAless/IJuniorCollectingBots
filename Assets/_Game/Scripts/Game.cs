@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class Starter : MonoBehaviour
+public class Game : MonoBehaviour
 {
-    [SerializeField] private ResourcesSpawner _resourcesSpawner;
+    public static Game Instance;
 
-    public static Starter Instance;
+    [SerializeField] private ResourcesSpawner _resourcesSpawner;
 
     private ResourcesStorage _resourcesStorage;
 
@@ -12,10 +12,7 @@ public class Starter : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
+        Instance = this;
 
         _resourcesStorage = new ResourcesStorage(_resourcesSpawner);
     }

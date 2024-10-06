@@ -30,24 +30,6 @@ public class ObjectPool<T> : MonoBehaviour
         return newObject;
     }
 
-    public T Get(out bool isInstantiated)
-    {
-        T newObject;
-
-        if (_pool.Count == 0)
-        {
-            newObject = Instantiate(_prefab, _container);
-            isInstantiated = true;
-            return newObject;
-        }
-
-        newObject = _pool.Dequeue();
-        newObject.gameObject.SetActive(true);
-
-        isInstantiated = false;
-        return newObject;
-    }
-
     public void Put(T putedObject)
     {
         _pool.Enqueue(putedObject);

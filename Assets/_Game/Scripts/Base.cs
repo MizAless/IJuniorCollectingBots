@@ -4,30 +4,36 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[RequireComponent(typeof(ResourcesScanner))]
 public class Base : MonoBehaviour
 {
-    [SerializeField] private ResourcesScaner _resourcesScaner;
+    [SerializeField] private ResourcesScanner _resourcesScaner;
 
-    public List<Resources> KnownResources { get; private set; } = new List<Resources>();
+    private List<Resources> _knownResources = new List<Resources>();
 
-    public event Action<List<Resources>> Scanned;
+    private int _resourcesValue = 0;
 
-    private int resourcesValue = 0;
+    //public event Action<IReadOnlyList<Resources>> ResourcesFinded;
+
+    public event Action<int> ResourcesValueChanged;
+
+    public IReadOnlyList<Resources> KnownResources => _knownResources;
 
     private void Start()
     {
-        StartCoroutine(Scaning());
+        StartCoroutine(Scanning());
     }
 
-    public void PutResources(int value)
+    public void PutResources(Resources resources)
     {
-        if (value < 0)
+        if (resources.Value < 0)
             throw new ArgumentOutOfRangeException();
 
-        resourcesValue += value;
+        _resourcesValue += resources.Value;
+        ResourcesValueChanged?.Invoke(_resourcesValue);
     }
 
-    private IEnumerator Scaning()
+    private IEnumerator Scanning()
     {
         while (enabled)
         {
@@ -39,15 +45,13 @@ public class Base : MonoBehaviour
 
     private void Scan()
     {
-        KnownResources.AddRange
-        (
-            _resourcesScaner.
-                Scan().
-                Where(resources => KnownResources.Contains(resources) == false).
-                ToList()
-        );
+        if (_resourcesScaner.TryGetResources(out List<Resources> listResources) == false)
+            return;
 
-        Scanned?.Invoke(KnownResources);
-        print("Scanned");
+        _knownResources.AddRange(listResources
+            .Where(resources => _knownResources.Contains(resources) == false)
+            .ToList());
+
+        //ResourcesFinded?.Invoke(_knownResources);
     }
 }

@@ -1,6 +1,7 @@
+using System;
 using System.Collections.Generic;
 
-public class ResourcesStorage
+public class ResourcesStorage : IDisposable
 {
     private List<Resources> _resourcesList = new List<Resources>();
 
@@ -10,33 +11,25 @@ public class ResourcesStorage
     {
         _resourcesSpawner = resourcesSpawner;
 
-        _resourcesSpawner.Spawned += Add;
+        _resourcesSpawner.ObjectSpawned += Add;
+        _resourcesSpawner.ObjectDisabled += Remove;
     }
 
-    public List<Resources> ResourcesList
+    public IReadOnlyList<Resources> ResourcesList => _resourcesList;
+
+    public void Dispose()
     {
-        get
-        {
-            List<Resources> resourcesList = new List<Resources>();
-
-            foreach (var resources in _resourcesList)
-            {
-                resourcesList.Add(resources);
-            }
-
-            return resourcesList;
-        }
+        _resourcesSpawner.ObjectSpawned -= Add;
+        _resourcesSpawner.ObjectDisabled -= Remove;
     }
 
     private void Add(Resources resources)
     {
         _resourcesList.Add(resources);
-        resources.Disabled += Remove;
     }
 
-    private void Remove(IDestroyable resources)
+    private void Remove(Resources resources)
     {
-        if (resources is Resources)
-            _resourcesList.Remove(resources as Resources);
+        _resourcesList.Remove(resources);
     }
 }

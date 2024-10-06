@@ -2,81 +2,104 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(ResourcesCollector))]
 [RequireComponent(typeof(Mover))]
-public class Unit : MonoBehaviour, IDestroyable
+public class Unit : MonoBehaviour, IDestroyable<Unit>
 {
-    private ResourcesCollector _resourcesCollector;
+    [SerializeField] private float _grabDistance;
+    [SerializeField] private float _giveDistance;
+
+    private Interaction _grabPoint;
+
     private Mover _mover;
+    private IState _state = new IdleState();
 
-    private IState state = new IdleState();
+    public Base Base { get; private set; }
 
-    private Resources _targetResources;
-
-    public event Action<IDestroyable> Disabled;
-    public event Action<IDestroyable> Destroyed;
-
-    private void OnEnable()
-    {
-        _mover.Reached += Collect;
-    }
-
-    private void OnDisable()
-    {
-        _mover.Reached -= Collect;
-    }
+    public event Action<Unit> Grabbed;
+    public event Action<Unit> Disabled;
 
     private void Awake()
     {
-        _resourcesCollector = GetComponent<ResourcesCollector>();
         _mover = GetComponent<Mover>();
+
+        _grabPoint = GetComponentInChildren<Interaction>();
     }
 
-    private void Start()
+    public void Init(Base gameBase)
     {
-        Invoke(nameof(Move), 0.01f);
+        Base = gameBase;
 
-        state.Handle(this);
-    }
+        _state.Handle(this);
+    }    
 
-    private void Move()
+    public void Grab(Resources resources)
     {
-        var res = FindAnyObjectByType(typeof(Resources));
-
-        _targetResources = res as Resources;
-
-        _mover.Move(_targetResources.transform);
+        StartCoroutine(GrabProcessing(resources));
     }
-     
-    private void Collect()
+
+    public void Give(Base gameBase)
     {
-        _resourcesCollector.Collect(_targetResources);
+        StartCoroutine(GiveProcessing(gameBase));
     }
+
+    private IEnumerator GiveProcessing(Base gameBase)
+    {
+        while (CanGive(gameBase) == false)
+        {
+            _mover.Move(gameBase.transform);
+            yield return null;
+        }
+
+        Resources givenResources = _grabPoint.Give(gameBase.transform.position);
+        gameBase.PutResources(givenResources);
+    }
+
+    private IEnumerator GrabProcessing(Resources resources)
+    {
+        while (resources.IsActive)
+        {
+            if (CanGrab(resources))
+            {
+                _grabPoint.Grab(resources);
+                Grabbed?.Invoke(this);
+            }
+            else
+                yield return new WaitUntil(() => _mover.Move(resources.transform));
+        }
+    }
+
+    private bool CanGrab(Resources resources)
+        => isEnoughDistance(resources.transform.position, transform.position, _grabDistance);
+    private bool CanGive(Base gameBase)
+        => isEnoughDistance(gameBase.transform.position, transform.position, _giveDistance);
+
+    private bool isEnoughDistance(Vector3 target, Vector3 current, float closeDistance)
+        => (current - target).sqrMagnitude <= closeDistance * closeDistance;
 }
 
 public class IdleState : IState
 {
     private float _delay = 0.5f;
 
+    private Unit _unit;
+
     public void Handle(Unit unit)
     {
-        
+        _unit = unit;
     }
 
     private IEnumerator WaitForNewResources()
     {
+        while()
+
         yield return new WaitForSeconds(_delay);
+
+        _unit.Grab();
     }
+
+
 }
 public class MoveingToResourcesState : IState
-{
-    public void Handle(Unit unit)
-    {
-
-    }
-}
-
-public class CollectResourcesState : IState
 {
     public void Handle(Unit unit)
     {
@@ -88,6 +111,6 @@ public class MoveingToBaseState : IState
 {
     public void Handle(Unit unit)
     {
-        
+
     }
 }

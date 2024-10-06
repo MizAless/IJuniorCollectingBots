@@ -5,7 +5,6 @@ public class UnitSpawner : Spawner<Unit>
 {
     [SerializeField] private float _spawnCooldown = 1f;
     [SerializeField] private int _maxUnits = 1;
-    [SerializeField] private Base _base;
 
     private int _currentCount = 0;
 
@@ -22,8 +21,7 @@ public class UnitSpawner : Spawner<Unit>
         {
             if (_currentCount < _maxUnits)
             {
-                Unit spawnedUnit = base.Spawn();
-                spawnedUnit.Init(_base);
+                base.Spawn();
                 _currentCount++;
             }
 
