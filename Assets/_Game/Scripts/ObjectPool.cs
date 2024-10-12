@@ -33,6 +33,7 @@ public class ObjectPool<T> : MonoBehaviour
     public void Put(T putedObject)
     {
         _pool.Enqueue(putedObject);
+        putedObject.transform.parent = _container;
         putedObject.gameObject.SetActive(false);
     }
 }

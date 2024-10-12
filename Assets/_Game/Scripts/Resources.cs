@@ -1,19 +1,30 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Collider))]
 public class Resources : MonoBehaviour, IDestroyable<Resources>, IGrabable<Resources>
 {
     [SerializeField] private int _startValue = 5;
 
+    private Rigidbody _rigidbody;
+    private Collider _collider;
+
     private int _value;
 
-    private bool _isActive = true;
+    private bool _isBusy = false;
 
     public event Action<Resources> Grabbed;
     public event Action<Resources> Disabled;
 
-    public bool IsActive => _isActive;
+    public bool IsBusy => _isBusy;
     public int Value => _value;
+
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+        _collider = GetComponent<Collider>();
+    }
 
     private void Start()
     {
@@ -25,27 +36,22 @@ public class Resources : MonoBehaviour, IDestroyable<Resources>, IGrabable<Resou
         _value = _startValue;
         transform.position = position;
         transform.rotation = quaternion;
-        _isActive = true;
+        _isBusy = false;
+        _rigidbody.velocity = Vector3.zero;
+        _collider.isTrigger = false;
+        _rigidbody.useGravity = true;
     }
 
-    //public int Collect(int collectedValue)
-    //{
-    //    if (collectedValue < 0)
-    //        throw new ArgumentOutOfRangeException();
-
-    //    int resultCollectedValue = _value >= collectedValue ? collectedValue : _value;
-
-    //    _value -= resultCollectedValue;
-
-    //    if (_value == 0)
-    //        SelfDestroy();
-
-    //    return resultCollectedValue;
-    //}
+    public void Privatize()
+    {
+        _isBusy = true;
+    }
 
     public void Grab()
     {
-        _isActive = false;
+        _rigidbody.velocity = Vector3.zero;
+        _collider.isTrigger = true;
+        _rigidbody.useGravity = false;
         Grabbed?.Invoke(this);
     }
 

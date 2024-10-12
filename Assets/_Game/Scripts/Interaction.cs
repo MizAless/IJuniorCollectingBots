@@ -18,19 +18,20 @@ public class Interaction : MonoBehaviour
     {
         _resources = resources;
 
-        _resources.Grab();
-        _resources.transform.position = transform.position;
-        _resources.transform.rotation = transform.rotation;
-        _resources.transform.SetParent(transform);
+        resources.Grab();
+        resources.transform.position = transform.position;
+        resources.transform.rotation = transform.rotation;
+        resources.transform.SetParent(transform);
 
-        _resources.Disabled += OnResourcesDisabled;
+        //resources.Disabled += OnResourcesDisabled;
     }
 
     public Resources Give(Vector3 target)
     {
         _resources.transform.parent = null;
 
-        _throwCoroutine = StartCoroutine(Throw(target, _resources));
+        //_throwCoroutine = StartCoroutine(Throw(target, _resources));
+        StartCoroutine(Throw(target, _resources));
 
         return _resources;
     }
@@ -46,7 +47,7 @@ public class Interaction : MonoBehaviour
             elapsedTime += Time.deltaTime;
             Vector3 newPosition = Vector3.Lerp(startPosition, target, _throwXCurve.Evaluate(Mathf.Clamp01(elapsedTime / _throwDuration)));
             newPosition.y = Mathf.Lerp(0, 1, _throwYCurve.Evaluate(Mathf.Clamp01(elapsedTime / _throwDuration))) * _throwHight;
-            _resources.transform.position = newPosition;
+            resources.transform.position = newPosition;
             yield return null;
         }
 
@@ -55,11 +56,11 @@ public class Interaction : MonoBehaviour
 
     private void OnResourcesDisabled(Resources resources)
     {
-        _resources.Disabled -= OnResourcesDisabled;
+        resources.Disabled -= OnResourcesDisabled;
 
         if (_throwCoroutine != null)
             StopCoroutine(_throwCoroutine);
 
-        _resources = null;
+        //_resources = null;
     }
 }

@@ -244,7 +244,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &380471174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,8 +257,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e02184969241706438874b52d945b434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _base: {fileID: 619021553}
-  _unitSpawner: {fileID: 439753255}
 --- !u!4 &380471175
 Transform:
   m_ObjectHideFlags: 0
@@ -319,8 +317,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Pool: {fileID: 965294720}
-  _spawnCooldown: 0.3
-  _maxUnits: 3
+  _spawnCooldown: 0.1
+  _maxUnits: 300
+  _base: {fileID: 619021553}
 --- !u!1 &619021552
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,8 +732,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.43488744, y: 0.33484438, z: -0.17829439, w: -0.8166782}
-  m_LocalPosition: {x: 29.676899, y: 22.104568, z: 1.1149406}
+  m_LocalRotation: {x: 0.44047657, y: -0.32732227, z: 0.17644297, w: 0.81713426}
+  m_LocalPosition: {x: 30.351158, y: 23.502682, z: -0.7972317}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1028,7 +1027,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Pool: {fileID: 1632826852}
   _spawnPoint: {fileID: 1287175030}
-  _spawnPositionPossibleValue: {x: 14, y: 14}
+  _spawnPositionPossibleValue: {x: 10, y: 10}
 --- !u!4 &1287175030
 Transform:
   m_ObjectHideFlags: 0
@@ -1038,7 +1037,7 @@ Transform:
   m_GameObject: {fileID: 1287175028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15, y: 6.92, z: 15}
+  m_LocalPosition: {x: 15, y: 7, z: 15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1229,8 +1228,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resourcesSpawner: {fileID: 1287175029}
-  _maxResourcesCount: 15
-  _spawnCooldown: 0
+  _maxResourcesCount: 2000
+  _spawnCooldown: 0.005
 --- !u!1 &1632826851
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,6 +16,14 @@ public class ResourcesSpawnLogic : MonoBehaviour
         StartCoroutine(Spawning());
     }
 
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
     private IEnumerator Spawning()
     {
         var wait = new WaitForSeconds(_spawnCooldown);
@@ -26,15 +34,15 @@ public class ResourcesSpawnLogic : MonoBehaviour
                 yield return new WaitUntil(() => CanSpawn);
 
             Resources resources = _resourcesSpawner.Spawn();
-            resources.Grabbed += OnGrabbed;
+            resources.Disabled += OnDisabled;
             _resourcesCount++;
             yield return wait;
         }
     }
 
-    private void OnGrabbed(Resources resources)
+    private void OnDisabled(Resources resources)
     {
-        resources.Grabbed -= OnGrabbed;
+        resources.Disabled -= OnDisabled;
         _resourcesCount--;
     }
 }

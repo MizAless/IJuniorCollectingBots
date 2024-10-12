@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5188a3e2e93ec5449af6d67c62ffe17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _throwDuration: 2
+  _throwDuration: 1
   _throwHight: 3
   _throwXCurve:
     serializedVersion: 2
@@ -268,4 +268,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _grabDistance: 2
-  _giveDistance: 5
+  _giveDistance: 4

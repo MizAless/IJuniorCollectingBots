@@ -13,8 +13,6 @@ public class Base : MonoBehaviour
 
     private int _resourcesValue = 0;
 
-    //public event Action<IReadOnlyList<Resources>> ResourcesFinded;
-
     public event Action<int> ResourcesValueChanged;
 
     public IReadOnlyList<Resources> KnownResources => _knownResources;
