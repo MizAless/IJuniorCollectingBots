@@ -16,14 +16,6 @@ public class ResourcesSpawnLogic : MonoBehaviour
         StartCoroutine(Spawning());
     }
 
-    private void Update()
-    {
-        if (Input.GetKey(KeyCode.Space))
-        {
-            gameObject.SetActive(false);
-        }
-    }
-
     private IEnumerator Spawning()
     {
         var wait = new WaitForSeconds(_spawnCooldown);

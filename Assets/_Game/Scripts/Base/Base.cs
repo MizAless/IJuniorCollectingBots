@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(ResourcesScanner))]
@@ -43,13 +44,11 @@ public class Base : MonoBehaviour
 
     private void Scan()
     {
-        if (_resourcesScaner.TryGetResources(out List<Resources> listResources) == false)
+        if (_resourcesScaner.TryScanResources(out List<Resources> listResources) == false)
             return;
-
+        
         _knownResources.AddRange(listResources
             .Where(resources => _knownResources.Contains(resources) == false)
             .ToList());
-
-        //ResourcesFinded?.Invoke(_knownResources);
     }
 }

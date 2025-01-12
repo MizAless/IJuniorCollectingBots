@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Mover))]
@@ -32,7 +31,7 @@ public class Unit : MonoBehaviour, IDestroyable<Unit>
         Base = gameBase;
 
         SetState(new IdleState());
-    }    
+    }
 
     public void SetState(IState state)
     {
@@ -77,72 +76,10 @@ public class Unit : MonoBehaviour, IDestroyable<Unit>
 
     private bool CanGrab(Resources resources)
         => isEnoughDistance(resources.transform.position, transform.position, _grabDistance);
+
     private bool CanGive(Base gameBase)
         => isEnoughDistance(gameBase.transform.position, transform.position, _giveDistance);
 
     private bool isEnoughDistance(Vector3 target, Vector3 current, float closeDistance)
         => (current - target).sqrMagnitude <= closeDistance * closeDistance;
-}
-
-public class IdleState : IState
-{
-    private float _delay = 0.1f;
-
-    public void Handle(Unit unit)
-    {
-        unit.StartCoroutine(WaitForNewResources(unit));
-    }
-
-    private IEnumerator WaitForNewResources(Unit unit)
-    {
-        while (unit.Base.KnownResources.Count(resources => resources.IsBusy == false) == 0)
-        {
-            yield return new WaitForSeconds(_delay);
-        }
-
-        unit.SetState(new MoveingToResourcesState());
-    }
-}
-
-public class MoveingToResourcesState : IState
-{
-    public void Handle(Unit unit)
-    {
-        Resources grabbingResources = unit.Base.KnownResources
-            .FirstOrDefault(resources => resources.IsBusy == false);
-
-        if (grabbingResources == null)
-        {
-            unit.SetState(new IdleState());
-            return;
-        }
-
-        grabbingResources.Privatize();
-
-        unit.Grabbed += OnGrabbed;
-        unit.Grab(grabbingResources);
-    }
-
-    private void OnGrabbed(Unit unit)
-    {
-        unit.Grabbed -= OnGrabbed;
-        unit.SetState(new MoveingToBaseState());
-    }
-}
-
-public class MoveingToBaseState : IState
-{
-    public void Handle(Unit unit)
-    {
-        unit.Gave += OnGave;
-
-        unit.Give(unit.Base);
-    }
-
-    private void OnGave(Unit unit)
-    {
-        unit.Gave -= OnGave;
-
-        unit.SetState(new IdleState());
-    }
 }

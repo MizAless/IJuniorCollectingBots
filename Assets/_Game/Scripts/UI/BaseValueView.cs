@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class BaseValueView : MonoBehaviour
 {
-    private const string ResourcesValue = "Resources value: ";
+    private const string ResourcesValue = "Resources value:";
 
     [SerializeField] private Base _gameBase;
     [SerializeField] private Text _text;
@@ -27,6 +27,6 @@ public class BaseValueView : MonoBehaviour
 
     private void UpdateTextView(int value)
     {
-        _text.text = ResourcesValue + value.ToString();
+        _text.text = $"{ResourcesValue} {value}";
     }
 }

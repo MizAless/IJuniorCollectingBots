@@ -228,7 +228,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 140473576}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &380471173
+--- !u!1 &153971441
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -236,37 +236,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 380471175}
-  - component: {fileID: 380471174}
+  - component: {fileID: 153971443}
+  - component: {fileID: 153971442}
   m_Layer: 0
-  m_Name: Mediator
+  m_Name: ResourcesStorage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &380471174
+  m_IsActive: 1
+--- !u!114 &153971442
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 380471173}
+  m_GameObject: {fileID: 153971441}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e02184969241706438874b52d945b434, type: 3}
+  m_Script: {fileID: 11500000, guid: 94c5b10710472eb4d9cd2ef70297a60b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &380471175
+  _resourcesSpawner: {fileID: 1287175029}
+--- !u!4 &153971443
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 380471173}
+  m_GameObject: {fileID: 153971441}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.733387, y: 6.542915, z: 6.2922425}
+  m_LocalPosition: {x: 0.36217982, y: -11.129202, z: 29.205038}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -317,8 +318,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Pool: {fileID: 965294720}
-  _spawnCooldown: 0.3
-  _maxUnits: 10
+  _spawnCooldown: 0.1
+  _maxUnits: 3
   _base: {fileID: 619021553}
 --- !u!1 &619021552
 GameObject:
@@ -364,7 +365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scanDistance: 50
-  resourcesSpawner: {fileID: 1287175029}
+  _resourcesStorage: {fileID: 153971442}
   <Cooldown>k__BackingField: 2
 --- !u!4 &619021555
 Transform:
@@ -1395,8 +1396,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resourcesSpawner: {fileID: 1287175029}
-  _maxResourcesCount: 100
-  _spawnCooldown: 0.02
+  _maxResourcesCount: 20
+  _spawnCooldown: 0.2
 --- !u!1 &1632826851
 GameObject:
   m_ObjectHideFlags: 0
@@ -1929,8 +1930,8 @@ SceneRoots:
   - {fileID: 1576934846}
   - {fileID: 1632826853}
   - {fileID: 1287175030}
+  - {fileID: 153971443}
   - {fileID: 624563100}
-  - {fileID: 380471175}
   - {fileID: 619021555}
   - {fileID: 1869815276}
   - {fileID: 2136361346}

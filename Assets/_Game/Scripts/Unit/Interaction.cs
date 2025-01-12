@@ -22,15 +22,11 @@ public class Interaction : MonoBehaviour
         resources.transform.position = transform.position;
         resources.transform.rotation = transform.rotation;
         resources.transform.SetParent(transform);
-
-        //resources.Disabled += OnResourcesDisabled;
     }
 
     public Resources Give(Vector3 target)
     {
         _resources.transform.parent = null;
-
-        //_throwCoroutine = StartCoroutine(Throw(target, _resources));
         StartCoroutine(Throw(target, _resources));
 
         return _resources;
@@ -52,15 +48,5 @@ public class Interaction : MonoBehaviour
         }
 
         resources.SelfDestroy();
-    }
-
-    private void OnResourcesDisabled(Resources resources)
-    {
-        resources.Disabled -= OnResourcesDisabled;
-
-        if (_throwCoroutine != null)
-            StopCoroutine(_throwCoroutine);
-
-        //_resources = null;
     }
 }

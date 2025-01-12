@@ -1,23 +1,23 @@
-using System;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class ResourcesStorage : IDisposable
+public class ResourcesStorage : MonoBehaviour
 {
+    [SerializeField] private ResourcesSpawner _resourcesSpawner;
+
     private List<Resources> _resourcesList = new List<Resources>();
 
-    private ResourcesSpawner _resourcesSpawner;
-
-    public ResourcesStorage(ResourcesSpawner resourcesSpawner)
+    public IReadOnlyList<Resources> ResourcesList => _resourcesList;
+    
+    public bool HasResources => _resourcesList.Count > 0;
+    
+    private void OnEnable()
     {
-        _resourcesSpawner = resourcesSpawner;
-
         _resourcesSpawner.ObjectSpawned += Add;
         _resourcesSpawner.ObjectDisabled += Remove;
     }
 
-    public IReadOnlyList<Resources> ResourcesList => _resourcesList;
-
-    public void Dispose()
+    private void OnDisable()
     {
         _resourcesSpawner.ObjectSpawned -= Add;
         _resourcesSpawner.ObjectDisabled -= Remove;
