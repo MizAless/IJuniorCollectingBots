@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 4603048320281230415}
   - component: {fileID: 3632272308446466747}
   m_Layer: 0
-  m_Name: Resources
+  m_Name: SkinnedResources
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
