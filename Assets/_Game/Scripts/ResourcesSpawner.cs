@@ -19,7 +19,7 @@ public class ResourcesSpawner : Spawner<Resources>
         Vector3 spawnPositionOffset = new Vector3(Random.Range(-1f,1f) * _spawnPositionPossibleValue.x, 0, Random.Range(-1f, 1f) * _spawnPositionPossibleValue.y);
         Vector3 spawnPosition = _spawnPoint.position + spawnPositionOffset;
 
-        resources.Init(spawnPosition, Quaternion.identity);
+        resources.Init(spawnPosition, Quaternion.Euler(0, Random.Range(0f, 360f), 0));
 
         _availableResources.Add(resources);
 

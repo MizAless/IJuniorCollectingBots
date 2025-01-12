@@ -85,15 +85,15 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.49375
       value: 1
-      inSlope: 0.32747912
-      outSlope: 0.32747912
+      inSlope: 0.42006564
+      outSlope: 0.42006564
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 0.30625612
+      value: 0.4
       inSlope: -3.339959
       outSlope: -3.339959
       tangentMode: 0
@@ -169,7 +169,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e0a02d969924e3449b2153139455bcbd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
