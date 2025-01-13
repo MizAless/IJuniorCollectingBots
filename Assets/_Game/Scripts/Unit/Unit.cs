@@ -22,7 +22,6 @@ public class Unit : MonoBehaviour, IDestroyable<Unit>
     private void Awake()
     {
         _mover = GetComponent<Mover>();
-
         _grabPoint = GetComponentInChildren<Interaction>();
     }
 

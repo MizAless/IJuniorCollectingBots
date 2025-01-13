@@ -1,33 +1,55 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class UnitSpawner : Spawner<Unit>
 {
-    [SerializeField] private float _spawnCooldown = 1f;
-    [SerializeField] private int _maxUnits = 1;
-    [SerializeField] private Base _base;
+    [field: SerializeField] public float Cooldown = 1f;
+    // [SerializeField] private int _maxUnits = 1;
+    // [SerializeField] private Base _base;
+    
+    private bool _canSpawn = true;
 
-    private int _currentCount = 0;
-
-    private void Start()
+    // private int _currentCount = 0;
+    //
+    // private void Start()
+    // {
+    //     StartCoroutine(Spawning());
+    // }
+    //
+    // private IEnumerator Spawning()
+    // {
+    //     var wait = new WaitForSeconds(_spawnCooldown);
+    //
+    //     while (enabled)
+    //     {
+    //         if (_currentCount < _maxUnits)
+    //         {
+    //             Unit spawnedUnit = base.Spawn();
+    //             spawnedUnit.Init(_base);
+    //             _currentCount++;
+    //         }
+    //
+    //         yield return wait;
+    //     }
+    // }
+    
+    private IEnumerator CooldownProcess()
     {
-        StartCoroutine(Spawning());
+        _canSpawn = false;
+
+        yield return new WaitForSeconds(Cooldown);
+        
+        _canSpawn = true;
     }
 
-    private IEnumerator Spawning()
+    public override Unit Spawn()
     {
-        var wait = new WaitForSeconds(_spawnCooldown);
+        if (_canSpawn == false)
+            return null;
 
-        while (enabled)
-        {
-            if (_currentCount < _maxUnits)
-            {
-                Unit spawnedUnit = base.Spawn();
-                spawnedUnit.Init(_base);
-                _currentCount++;
-            }
-
-            yield return wait;
-        }
+        StartCoroutine(CooldownProcess());
+        
+        return base.Spawn();
     }
 }
