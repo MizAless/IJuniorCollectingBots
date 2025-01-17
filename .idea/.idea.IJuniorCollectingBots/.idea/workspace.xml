@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c70355b2-5235-4607-a0e6-d26a0842cc69" name="Changes" comment="" />
+    <list default="true" id="c70355b2-5235-4607-a0e6-d26a0842cc69" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.IJuniorCollectingBots/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.IJuniorCollectingBots/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scenes/DefaultScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scenes/DefaultScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Base/Base.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Base/Base.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Base/ResourcesScanner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Base/ResourcesScanner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Tools/Spawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Tools/Spawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/Mover.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/Mover.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/Unit.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/Unit.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,25 +24,29 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "MizAless"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;MizAless&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/MizAless/IJuniorCollectingBots.git",
-    "accountId": "8832bc0b-abaa-4437-9621-21512434e57b"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/MizAless/IJuniorCollectingBots.git&quot;,
+    &quot;accountId&quot;: &quot;8832bc0b-abaa-4437-9621-21512434e57b&quot;
   }
-}]]></component>
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/_Game/Scripts/GameResources/ResourcesSpawnLogic.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/IdleState.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collab-proxy@2.5.1/Editor/PlasticSCM/PlasticShutdown.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.visualstudio@2.0.22/Editor/Messaging/TcpListener.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@14.0.10/Runtime/Common/ObjectPools.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/ExecuteEvents.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2rWTATwvAtG3LHpkzt02Zw3F7aY" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -45,7 +57,7 @@
     "Attach to Unity Editor.Attach to Unity Editor.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "XThreadsFramesViewSplitterKey": "0.5273224",
-    "git-widget-placeholder": "Test",
+    "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -81,10 +93,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="8640">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="8640" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -101,6 +113,7 @@
       <option name="presentableId" value="Default" />
       <updated>1736673689322</updated>
       <workItem from="1736673689531" duration="5201000" />
+      <workItem from="1737112224742" duration="3025000" />
     </task>
     <servers />
   </component>
@@ -122,29 +135,16 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/_Game/Scripts/Base/ResourcesScanner.cs</url>
-          <line>14</line>
+          <line>32</line>
           <properties documentPath="C:\UnityProjects\IJuniorCollectingBots\Assets\_Game\Scripts\Base\ResourcesScanner.cs" containingFunctionPresentation="Method 'TryScanResources'">
             <startOffsets>
-              <option value="438" />
+              <option value="727" />
             </startOffsets>
             <endOffsets>
-              <option value="439" />
+              <option value="728" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/_Game/Scripts/Base/Base.cs</url>
-          <line>46</line>
-          <properties documentPath="C:\UnityProjects\IJuniorCollectingBots\Assets\_Game\Scripts\Base\Base.cs" containingFunctionPresentation="Method 'Scan'">
-            <startOffsets>
-              <option value="1068" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1150" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

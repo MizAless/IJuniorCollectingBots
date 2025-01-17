@@ -75,11 +75,11 @@ public class Unit : MonoBehaviour, IDestroyable<Unit>
     }
 
     private bool CanGrab(Resources resources)
-        => isEnoughDistance(resources.transform.position, transform.position, _grabDistance);
+        => IsEnoughDistance(resources.transform.position, transform.position, _grabDistance);
 
     private bool CanGive(Base gameBase)
-        => isEnoughDistance(gameBase.transform.position, transform.position, _giveDistance);
+        => IsEnoughDistance(gameBase.transform.position, transform.position, _giveDistance);
 
-    private bool isEnoughDistance(Vector3 target, Vector3 current, float closeDistance)
+    private bool IsEnoughDistance(Vector3 target, Vector3 current, float closeDistance)
         => (current - target).sqrMagnitude <= closeDistance * closeDistance;
 }

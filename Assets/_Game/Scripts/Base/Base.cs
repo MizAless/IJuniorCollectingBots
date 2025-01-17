@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(ResourcesScanner))]
@@ -12,6 +11,8 @@ public class Base : MonoBehaviour
 
     private List<Resources> _knownResources = new List<Resources>();
 
+    private List<Unit> _units = new List<Unit>();
+
     private int _resourcesValue = 0;
 
     public event Action<int> ResourcesValueChanged;
@@ -20,7 +21,17 @@ public class Base : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(Scanning());
+        _resourcesScaner.StartScanning();
+    }
+
+    private void OnEnable()
+    {
+        _resourcesScaner.Scanned += OnScanned;
+    }
+
+    private void OnDisable()
+    {
+        _resourcesScaner.Scanned -= OnScanned;
     }
 
     public void PutResources(Resources resources)
@@ -31,24 +42,29 @@ public class Base : MonoBehaviour
         _resourcesValue += resources.Value;
         ResourcesValueChanged?.Invoke(_resourcesValue);
     }
-
-    private IEnumerator Scanning()
+    
+    private IEnumerator ResourcesCollecting()
     {
         while (enabled)
         {
-            Scan();
-
-            yield return new WaitForSeconds(_resourcesScaner.Cooldown);
+            
+            
+            yield return null;
         }
     }
-
-    private void Scan()
+    
+    private void Collect()
     {
-        if (_resourcesScaner.TryScanResources(out List<Resources> listResources) == false)
+        //продолжить
+    }
+    
+    private void OnScanned(List<Resources> scannedResources)
+    {
+        if (scannedResources.Count == 0)
             return;
-        
-        _knownResources.AddRange(listResources
-            .Where(resources => _knownResources.Contains(resources) == false)
-            .ToList());
+     
+        _knownResources.AddRange(scannedResources
+        .Where(resources => _knownResources.Contains(resources) == false)
+        .ToList());
     }
 }
