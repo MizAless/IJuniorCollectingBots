@@ -11,7 +11,7 @@ public class ResourcesSpawnLogic : MonoBehaviour
 
     private bool CanSpawn => _resourcesCount < _maxResourcesCount;
 
-    private void Start()
+    public void Init()
     {
         StartCoroutine(Spawning());
     }

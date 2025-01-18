@@ -12,12 +12,12 @@ public class Resources : MonoBehaviour, IDestroyable<Resources>, IGrabable<Resou
 
     private int _value;
 
-    private bool _isAvalable = true;
+    private bool _isAvailable = true;
 
     public event Action<Resources> Grabbed;
     public event Action<Resources> Disabled;
 
-    public bool IsAvalable => _isAvalable;
+    public bool IsAvailable => _isAvailable;
     public int Value => _value;
 
     private void Awake()
@@ -36,7 +36,7 @@ public class Resources : MonoBehaviour, IDestroyable<Resources>, IGrabable<Resou
         _value = _startValue;
         transform.position = position;
         transform.rotation = quaternion;
-        _isAvalable = true;
+        _isAvailable = true;
         _rigidbody.velocity = Vector3.zero;
         _collider.isTrigger = false;
         _rigidbody.useGravity = true;
@@ -44,7 +44,7 @@ public class Resources : MonoBehaviour, IDestroyable<Resources>, IGrabable<Resou
 
     public void Privatize()
     {
-        _isAvalable = false;
+        _isAvailable = false;
     }
 
     public void Grab()

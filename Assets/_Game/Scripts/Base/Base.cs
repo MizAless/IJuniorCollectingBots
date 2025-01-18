@@ -2,36 +2,27 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(ResourcesScanner))]
 public class Base : MonoBehaviour
 {
     [SerializeField] private ResourcesScanner _resourcesScaner;
-
-    private List<Resources> _knownResources = new List<Resources>();
+    [SerializeField] private UnitSpawner _unitSpawner;
 
     private List<Unit> _units = new List<Unit>();
+
+    private List<Resources> _knownResources = new List<Resources>();
 
     private int _resourcesValue = 0;
 
     public event Action<int> ResourcesValueChanged;
 
-    public IReadOnlyList<Resources> KnownResources => _knownResources;
-
-    private void Start()
+    public void Init()
     {
+        AddListeners();
         _resourcesScaner.StartScanning();
-    }
-
-    private void OnEnable()
-    {
-        _resourcesScaner.Scanned += OnScanned;
-    }
-
-    private void OnDisable()
-    {
-        _resourcesScaner.Scanned -= OnScanned;
     }
 
     public void PutResources(Resources resources)
@@ -42,29 +33,55 @@ public class Base : MonoBehaviour
         _resourcesValue += resources.Value;
         ResourcesValueChanged?.Invoke(_resourcesValue);
     }
-    
-    private IEnumerator ResourcesCollecting()
+
+    private void AddListeners()
     {
-        while (enabled)
+        _resourcesScaner.Scanned += OnScanned;
+        _unitSpawner.ObjectSpawned += OnUnitSpawned;
+    }
+
+    private void RemoveListeners()
+    {
+        _resourcesScaner.Scanned -= OnScanned;
+        _unitSpawner.ObjectSpawned -= OnUnitSpawned;
+
+        foreach (var unit in _units)
         {
-            
-            
-            yield return null;
+            unit.Released -= OnUnitReleased;
         }
     }
-    
-    private void Collect()
+
+    private void OnDisable()
     {
-        //продолжить
+        RemoveListeners();
     }
-    
+
+    private void OnUnitSpawned(Unit unit)
+    {
+        _units.Add(unit);
+        unit.Released += OnUnitReleased;
+    }
+
+    private void OnUnitReleased(Unit unit)
+    {
+        StartCoroutine(CollectAvailableResources(unit));
+    }
+
+    private IEnumerator CollectAvailableResources(Unit unit)
+    {
+        yield return new WaitUntil(() => _knownResources.Count(resources => resources.IsAvailable) > 0);
+        
+        Resources collectingResources = _knownResources.FirstOrDefault(resources => resources.IsAvailable);
+        unit.Collect(collectingResources);
+    }
+
     private void OnScanned(List<Resources> scannedResources)
     {
         if (scannedResources.Count == 0)
             return;
-     
+
         _knownResources.AddRange(scannedResources
-        .Where(resources => _knownResources.Contains(resources) == false)
-        .ToList());
+            .Where(resources => _knownResources.Contains(resources) == false)
+            .ToList());
     }
 }

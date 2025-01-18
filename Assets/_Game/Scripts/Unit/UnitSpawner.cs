@@ -9,7 +9,7 @@ public class UnitSpawner : Spawner<Unit>
 
     private int _currentCount = 0;
 
-    private void Start()
+    public void Init()
     {
         StartCoroutine(Spawning());
     }

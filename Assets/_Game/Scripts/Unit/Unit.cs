@@ -13,6 +13,8 @@ public class Unit : MonoBehaviour, IDestroyable<Unit>
     private Mover _mover;
     private IState _state;
 
+    public event Action<Unit> Released;
+
     public Base Base { get; private set; }
 
     public event Action<Unit> Grabbed;
@@ -22,14 +24,12 @@ public class Unit : MonoBehaviour, IDestroyable<Unit>
     private void Awake()
     {
         _mover = GetComponent<Mover>();
-
         _grabPoint = GetComponentInChildren<Interaction>();
     }
 
     public void Init(Base gameBase)
     {
         Base = gameBase;
-
         SetState(new IdleState());
     }
 
@@ -37,6 +37,11 @@ public class Unit : MonoBehaviour, IDestroyable<Unit>
     {
         _state = state;
         _state.Handle(this);
+    }
+
+    public void Collect(Resources resources)
+    {
+        SetState(new MoveingToResourcesState(resources));
     }
 
     public void Grab(Resources resources)
@@ -47,6 +52,11 @@ public class Unit : MonoBehaviour, IDestroyable<Unit>
     public void Give(Base gameBase)
     {
         StartCoroutine(GiveProcessing(gameBase));
+    }
+
+    public void Release()
+    {
+        Released?.Invoke(this);
     }
 
     private IEnumerator GrabProcessing(Resources resources)

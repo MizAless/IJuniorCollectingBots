@@ -1,22 +1,24 @@
-using System.Linq;
-
 public class MoveingToResourcesState : IState
 {
+    private Resources _resources;
+    
+    public MoveingToResourcesState(Resources resources)
+    {
+        _resources = resources;
+    }
+    
     public void Handle(Unit unit)
     {
-        Resources grabbingResources = unit.Base.KnownResources
-            .FirstOrDefault(resources => resources.IsAvalable);
-
-        if (grabbingResources == null)
+        if (_resources == null)
         {
             unit.SetState(new IdleState());
             return;
         }
 
-        grabbingResources.Privatize();
+        _resources.Privatize();
 
         unit.Grabbed += OnGrabbed;
-        unit.Grab(grabbingResources);
+        unit.Grab(_resources);
     }
 
     private void OnGrabbed(Unit unit)
