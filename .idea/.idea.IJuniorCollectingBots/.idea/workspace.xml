@@ -6,16 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c70355b2-5235-4607-a0e6-d26a0842cc69" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.IJuniorCollectingBots/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.IJuniorCollectingBots/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scenes/DefaultScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scenes/DefaultScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Base/Base.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Base/Base.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Base/ResourcesScanner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Base/ResourcesScanner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/GameResources/Resources.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/GameResources/Resources.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/GameResources/ResourcesSpawnLogic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/GameResources/ResourcesSpawnLogic.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/Mover.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/Mover.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/Unit.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/Unit.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/IdleState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/IdleState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/MoveingToResourcesState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/MoveingToResourcesState.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +112,7 @@
       <updated>1736673689322</updated>
       <workItem from="1736673689531" duration="5201000" />
       <workItem from="1737112224742" duration="3025000" />
-      <workItem from="1737182141973" duration="9432000" />
+      <workItem from="1737182141973" duration="9773000" />
     </task>
     <servers />
   </component>
@@ -137,24 +128,5 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/_Game/Scripts/GameInitializer.cs</url>
-          <line>10</line>
-          <properties documentPath="C:\UnityProjects\IJuniorCollectingBots\Assets\_Game\Scripts\GameInitializer.cs" containingFunctionPresentation="Method 'Start'">
-            <startOffsets>
-              <option value="278" />
-            </startOffsets>
-            <endOffsets>
-              <option value="291" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
