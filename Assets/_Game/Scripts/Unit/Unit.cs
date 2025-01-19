@@ -9,6 +9,7 @@ public class Unit : MonoBehaviour, IDestroyable<Unit>
     [SerializeField] private float _giveDistance;
 
     private Interaction _grabPoint;
+    private UnitStateMachine _unitStateMachine;
 
     private Mover _mover;
     private IState _state;
@@ -30,18 +31,12 @@ public class Unit : MonoBehaviour, IDestroyable<Unit>
     public void Init(Base gameBase)
     {
         Base = gameBase;
-        SetState(new IdleState());
-    }
-
-    public void SetState(IState state)
-    {
-        _state = state;
-        _state.Handle(this);
+        _unitStateMachine = new UnitStateMachine(this);
     }
 
     public void Collect(Resources resources)
     {
-        SetState(new MoveingToResourcesState(resources));
+        _unitStateMachine.SetState(new MovingToResourcesState(_unitStateMachine, resources));
     }
 
     public void Grab(Resources resources)
@@ -64,6 +59,7 @@ public class Unit : MonoBehaviour, IDestroyable<Unit>
         while (CanGrab(resources) == false)
         {
             _mover.Move(resources.transform);
+            
             yield return null;
         }
 
@@ -76,6 +72,7 @@ public class Unit : MonoBehaviour, IDestroyable<Unit>
         while (CanGive(gameBase) == false)
         {
             _mover.Move(gameBase.transform);
+            
             yield return null;
         }
 

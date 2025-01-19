@@ -1,4 +1,5 @@
 public interface IState
 {
-    public void Handle(Unit unit);
+    public void Enter();
+    public void Exit();
 }

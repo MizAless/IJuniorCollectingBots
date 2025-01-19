@@ -1,9 +1,18 @@
 public class IdleState : IState
 {
-    private float _delay = 0.1f;
-
-    public void Handle(Unit unit)
+    private UnitStateMachine _unitStateMachine;
+    
+    public IdleState(UnitStateMachine unitStateMachine)
     {
-        unit.Release();
+        _unitStateMachine = unitStateMachine;
+    }
+    
+    public void Enter()
+    {
+        _unitStateMachine.Unit.Release();
+    }
+
+    public void Exit()
+    {
     }
 }
