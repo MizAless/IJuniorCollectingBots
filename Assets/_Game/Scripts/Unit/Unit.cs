@@ -36,7 +36,7 @@ public class Unit : MonoBehaviour, IDestroyable<Unit>
 
     public void Collect(Resources resources)
     {
-        _unitStateMachine.SetState(new MovingToResourcesState(_unitStateMachine, resources));
+        _unitStateMachine.SetState<MovingToResourcesState>();
     }
 
     public void Grab(Resources resources)

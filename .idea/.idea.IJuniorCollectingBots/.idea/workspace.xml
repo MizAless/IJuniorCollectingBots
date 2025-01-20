@@ -5,22 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c70355b2-5235-4607-a0e6-d26a0842cc69" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/MovingToBaseState.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/MovingToResourcesState.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/UnitStateMachine.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/UnitStateMachine.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.erp" beforeDir="false" afterPath="$PROJECT_DIR$/.erp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.IJuniorCollectingBots/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.IJuniorCollectingBots/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/GameResources/ResourcesSpawnLogic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/GameResources/ResourcesSpawnLogic.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Interfaces/IState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Interfaces/IState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/Interaction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/Interaction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/Mover.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/Mover.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Tools/StateMachine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Tools/StateMachine.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/Unit.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/Unit.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/IdleState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/IdleState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/MoveingToBaseState.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/MoveingToBaseState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/MovingToBaseState.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/MoveingToResourcesState.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/MoveingToResourcesState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/MovingToResourcesState.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/MovingToResourcesState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/MovingToResourcesState.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +122,9 @@
       <workItem from="1737112224742" duration="3025000" />
       <workItem from="1737182141973" duration="10583000" />
       <workItem from="1737211188239" duration="3201000" />
-      <workItem from="1737258985913" duration="979000" />
+      <workItem from="1737258985913" duration="2937000" />
+      <workItem from="1737277594088" duration="3512000" />
+      <workItem from="1737361120978" duration="2232000" />
     </task>
     <servers />
   </component>

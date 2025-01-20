@@ -1,4 +1,4 @@
-public class MovingToResourcesState : IState
+public class  MovingToResourcesState : IState
 {
     private Resources _resources;
     private UnitStateMachine _unitStateMachine;
