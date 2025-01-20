@@ -1,17 +1,18 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class Spawner<T> : MonoBehaviour
     where T : MonoBehaviour, IDestroyable<T>
 {
-    [SerializeField] private ObjectPool<T> Pool;
+    [SerializeField] private ObjectPool<T> _pool;
 
     public event Action<T> ObjectSpawned;
     public event Action<T> ObjectDisabled;
 
     public virtual T Spawn()
     {
-        T newObject = Pool.Get();
+        T newObject = _pool.Get();
 
         newObject.Disabled += OnDisabled;
 
@@ -24,6 +25,6 @@ public abstract class Spawner<T> : MonoBehaviour
     {
         obj.Disabled -= OnDisabled;
         ObjectDisabled?.Invoke(obj);
-        Pool.Put(obj);
+        _pool.Put(obj);
     }
 }

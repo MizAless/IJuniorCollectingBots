@@ -11,6 +11,8 @@ public class Base : MonoBehaviour
     
     [SerializeField] private UnitSpawner _unitSpawner;
     [SerializeField] private int _unitCost = 3;
+    
+    private List<Unit> _units = new List<Unit>();
 
     private List<Resources> _knownResources = new List<Resources>();
 
@@ -18,12 +20,12 @@ public class Base : MonoBehaviour
 
     public event Action<int> ResourcesValueChanged;
 
-    public IReadOnlyList<Resources> KnownResources => _knownResources;
-
-    private void Start()
+    public void Init()
     {
-        StartCoroutine(Scanning());
-        StartCoroutine(Spawning());
+        // StartCoroutine(Scanning());
+        // StartCoroutine(Spawning());
+        AddListeners();
+        _resourcesScaner.StartScanning();
     }
 
     public void PutResources(Resources resources)
@@ -55,22 +57,53 @@ public class Base : MonoBehaviour
         _unitSpawner.Spawn().Init(this);
     }
 
-    private IEnumerator Scanning()
+    private void AddListeners()
     {
-        while (enabled)
-        {
-            Scan();
+        _resourcesScaner.Scanned += OnScanned;
+        _unitSpawner.ObjectSpawned += OnUnitSpawned;
+    }
 
-            yield return new WaitForSeconds(_resourcesScaner.Cooldown);
+    private void RemoveListeners()
+    {
+        _resourcesScaner.Scanned -= OnScanned;
+        _unitSpawner.ObjectSpawned -= OnUnitSpawned;
+
+        foreach (var unit in _units)
+        {
+            unit.Released -= OnUnitReleased;
         }
     }
 
-    private void Scan()
+    private void OnDisable()
     {
-        if (_resourcesScaner.TryScanResources(out List<Resources> listResources) == false)
-            return;
+        RemoveListeners();
+    }
+
+    private void OnUnitSpawned(Unit unit)
+    {
+        _units.Add(unit);
+        unit.Released += OnUnitReleased;
+    }
+
+    private void OnUnitReleased(Unit unit)
+    {
+        StartCoroutine(CollectAvailableResources(unit));
+    }
+
+    private IEnumerator CollectAvailableResources(Unit unit)
+    {
+        yield return new WaitUntil(() => _knownResources.Count(resources => resources.IsAvailable) > 0);
         
-        _knownResources.AddRange(listResources
+        Resources collectingResources = _knownResources.FirstOrDefault(resources => resources.IsAvailable);
+        unit.Collect(collectingResources);
+    }
+
+    private void OnScanned(List<Resources> scannedResources)
+    {
+        if (scannedResources.Count == 0)
+            return;
+
+        _knownResources.AddRange(scannedResources
             .Where(resources => _knownResources.Contains(resources) == false)
             .ToList());
     }

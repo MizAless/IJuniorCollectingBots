@@ -44,6 +44,7 @@ public class Interaction : MonoBehaviour
             Vector3 newPosition = Vector3.Lerp(startPosition, target, _throwXCurve.Evaluate(Mathf.Clamp01(elapsedTime / _throwDuration)));
             newPosition.y = Mathf.Lerp(0, 1, _throwYCurve.Evaluate(Mathf.Clamp01(elapsedTime / _throwDuration))) * _throwHight;
             resources.transform.position = newPosition;
+            
             yield return null;
         }
 

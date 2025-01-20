@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,37 +6,39 @@ using UnityEngine;
 public class ResourcesScanner : MonoBehaviour
 {
     [SerializeField] private float _scanDistance = 50f; 
-
     [SerializeField] private ResourcesStorage _resourcesStorage;
-    [field: SerializeField] public float Cooldown { get; private set; } = 20f;
+    [SerializeField] private float _cooldown = 20f;
 
-    private bool _canScan = true;
+    public event Action<List<Resources>> Scanned;
 
-    public bool TryScanResources(out List<Resources> resourcesList)
+    public void StartScanning()
     {
-        if (_canScan == false || _resourcesStorage.HasResources == false)
+        StartCoroutine(Scanning());
+    }
+    
+    private IEnumerator Scanning()
+    {
+        var wait = new WaitForSeconds(_cooldown);
+        
+        while (enabled)
         {
-            resourcesList = null;
-            return false;
+            Scan();
+
+            yield return wait;
         }
+    }
+    
+    private void Scan()
+    {
+        if (_resourcesStorage.HasResources == false)
+            return;
 
-        StartCoroutine(CooldownProcess());
-
-        resourcesList = new List<Resources>();
+        var resourcesList = new List<Resources>();
 
         foreach (Resources resource in _resourcesStorage.ResourcesList)
             if ((resource.transform.position - transform.position).sqrMagnitude < _scanDistance * _scanDistance)
                 resourcesList.Add(resource);
 
-        return true;
-    }
-
-    private IEnumerator CooldownProcess()
-    {
-        _canScan = false;
-
-        yield return new WaitForSeconds(Cooldown);
-
-        _canScan = true;
+        Scanned?.Invoke(resourcesList);
     }
 }

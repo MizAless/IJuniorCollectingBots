@@ -10,31 +10,9 @@ public class UnitSpawner : Spawner<Unit>
     
     private bool _canSpawn = true;
 
-    // private int _currentCount = 0;
-    //
-    // private void Start()
-    // {
-    //     StartCoroutine(Spawning());
-    // }
-    //
-    // private IEnumerator Spawning()
-    // {
-    //     var wait = new WaitForSeconds(_spawnCooldown);
-    //
-    //     while (enabled)
-    //     {
-    //         if (_currentCount < _maxUnits)
-    //         {
-    //             Unit spawnedUnit = base.Spawn();
-    //             spawnedUnit.Init(_base);
-    //             _currentCount++;
-    //         }
-    //
-    //         yield return wait;
-    //     }
-    // }
-    
-    private IEnumerator CooldownProcess()
+    private int _currentCount = 0;
+
+    public void Init()
     {
         _canSpawn = false;
 

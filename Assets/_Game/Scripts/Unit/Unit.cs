@@ -9,9 +9,12 @@ public class Unit : MonoBehaviour, IDestroyable<Unit>
     [SerializeField] private float _giveDistance;
 
     private Interaction _grabPoint;
+    private UnitStateMachine _unitStateMachine;
 
     private Mover _mover;
     private IState _state;
+
+    public event Action<Unit> Released;
 
     public Base Base { get; private set; }
 
@@ -28,14 +31,12 @@ public class Unit : MonoBehaviour, IDestroyable<Unit>
     public void Init(Base gameBase)
     {
         Base = gameBase;
-
-        SetState(new IdleState());
+        _unitStateMachine = new UnitStateMachine(this);
     }
 
-    public void SetState(IState state)
+    public void Collect(Resources resources)
     {
-        _state = state;
-        _state.Handle(this);
+        _unitStateMachine.SetState(new MovingToResourcesState(_unitStateMachine, resources));
     }
 
     public void Grab(Resources resources)
@@ -48,11 +49,17 @@ public class Unit : MonoBehaviour, IDestroyable<Unit>
         StartCoroutine(GiveProcessing(gameBase));
     }
 
+    public void Release()
+    {
+        Released?.Invoke(this);
+    }
+
     private IEnumerator GrabProcessing(Resources resources)
     {
         while (CanGrab(resources) == false)
         {
             _mover.Move(resources.transform);
+            
             yield return null;
         }
 
@@ -65,6 +72,7 @@ public class Unit : MonoBehaviour, IDestroyable<Unit>
         while (CanGive(gameBase) == false)
         {
             _mover.Move(gameBase.transform);
+            
             yield return null;
         }
 
@@ -74,11 +82,11 @@ public class Unit : MonoBehaviour, IDestroyable<Unit>
     }
 
     private bool CanGrab(Resources resources)
-        => isEnoughDistance(resources.transform.position, transform.position, _grabDistance);
+        => IsEnoughDistance(resources.transform.position, transform.position, _grabDistance);
 
     private bool CanGive(Base gameBase)
-        => isEnoughDistance(gameBase.transform.position, transform.position, _giveDistance);
+        => IsEnoughDistance(gameBase.transform.position, transform.position, _giveDistance);
 
-    private bool isEnoughDistance(Vector3 target, Vector3 current, float closeDistance)
+    private bool IsEnoughDistance(Vector3 target, Vector3 current, float closeDistance)
         => (current - target).sqrMagnitude <= closeDistance * closeDistance;
 }
