@@ -3,31 +3,28 @@ using UnityEngine;
 
 public class UnitSpawner : Spawner<Unit>
 {
-    [SerializeField] private float _spawnCooldown = 1f;
-    [SerializeField] private int _maxUnits = 1;
-    [SerializeField] private Base _base;
+    [field: SerializeField] public float Cooldown = 1f;
+    
+    private bool _canSpawn = true;
 
     private int _currentCount = 0;
 
-    public void Init()
+    public IEnumerator CooldownProcess()
     {
-        StartCoroutine(Spawning());
+        _canSpawn = false;
+
+        yield return new WaitForSeconds(Cooldown);
+        
+        _canSpawn = true;
     }
 
-    private IEnumerator Spawning()
+    public override Unit Spawn()
     {
-        var wait = new WaitForSeconds(_spawnCooldown);
-
-        while (enabled)
-        {
-            if (_currentCount < _maxUnits)
-            {
-                Unit spawnedUnit = base.Spawn();
-                spawnedUnit.Init(_base);
-                _currentCount++;
-            }
-
-            yield return wait;
-        }
+        if (_canSpawn == false)
+            return null;
+        
+        StartCoroutine(CooldownProcess());
+        
+        return base.Spawn();
     }
 }

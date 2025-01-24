@@ -7,7 +7,12 @@ public class Mover : MonoBehaviour
 
     public void Move(Transform target)
     {
-        Vector3 direction = target.position - transform.position;
+        Move(target.position);
+    }
+    
+    public void Move(Vector3 target)
+    {
+        Vector3 direction = target - transform.position;
         direction.y = 0f;
         transform.position += direction.normalized * _speed * Time.deltaTime;
     }

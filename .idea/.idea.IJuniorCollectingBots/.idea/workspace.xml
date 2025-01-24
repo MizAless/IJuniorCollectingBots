@@ -5,22 +5,46 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c70355b2-5235-4607-a0e6-d26a0842cc69" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/MovingToBaseState.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/MovingToResourcesState.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/UnitStateMachine.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/UnitStateMachine.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Base/BasePool.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Base/BasePool.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Base/BaseSpawner.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Base/BaseSpawner.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Flag.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/General/BuildValidater.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/General/BuildValidater.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/General/Game.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/General/Game.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/General/GameInitializer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/General/ServiceLocator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/General/ServiceLocator.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/UI/BaseResourcesValueView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/UI/Notification.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/UI/Notification.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/UI/UICreator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/UI/UICreator.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/MovingToBuildBase.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/MovingToBuildBase.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.erp" beforeDir="false" afterPath="$PROJECT_DIR$/.erp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.IJuniorCollectingBots/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.IJuniorCollectingBots/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/GameResources/ResourcesSpawnLogic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/GameResources/ResourcesSpawnLogic.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Interfaces/IState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Interfaces/IState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/Interaction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/Interaction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Prefabs/Default/Flag.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Prefabs/Default/Flag.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Prefabs/Default/Unit.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Prefabs/Default/Unit.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scenes/DefaultScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scenes/DefaultScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Base/Base.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Base/Base.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Base/ResourcesScanner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Base/ResourcesScanner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Flag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Flag/Flag.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Flag.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Flag/Flag.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/FlagSetter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Flag/FlagSetter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/FlagSetter.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Flag/FlagSetter.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/GameInitializer.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/General.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/GameInitializer/GameInitializer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/GameInitializer/GameInitializer.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/General/GameInitializer.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Input/PlayerInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Input/PlayerInput.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/UI/BaseValueView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/UI/BaseValueView.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/UI/BaseResourcesValueView.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/Mover.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/Mover.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/Unit.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/Unit.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/IdleState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/IdleState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/MoveingToBaseState.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/MoveingToBaseState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/MovingToBaseState.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/MoveingToResourcesState.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/MoveingToResourcesState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/MovingToResourcesState.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +71,7 @@
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/_Game/Scripts/GameResources/ResourcesSpawnLogic.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Game/Scripts/UI/BaseResourcesValueView.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Game/Scripts/Unit/UnitStates/IdleState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collab-proxy@2.5.1/Editor/PlasticSCM/PlasticShutdown.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.editorcoroutines@1.0.0/Editor/EditorCoroutineUtility.cs" root0="SKIP_HIGHLIGHTING" />
@@ -66,6 +91,9 @@
   &quot;associatedIndex&quot;: 1
 }</component>
   <component name="ProjectId" id="2rWTATwvAtG3LHpkzt02Zw3F7aY" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -75,7 +103,7 @@
     &quot;Attach to Unity Editor.Attach to Unity Editor.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.41395348&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Colonization&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -135,6 +163,12 @@
       <workItem from="1737182141973" duration="10583000" />
       <workItem from="1737211188239" duration="3201000" />
       <workItem from="1737258985913" duration="979000" />
+      <workItem from="1737373747411" duration="3845000" />
+      <workItem from="1737472941828" duration="622000" />
+      <workItem from="1737524637644" duration="25540000" />
+      <workItem from="1737616784488" duration="539000" />
+      <workItem from="1737628582578" duration="1754000" />
+      <workItem from="1737709804618" duration="8930000" />
     </task>
     <servers />
   </component>

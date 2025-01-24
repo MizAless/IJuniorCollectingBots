@@ -5,27 +5,62 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(ResourcesScanner))]
-public class Base : MonoBehaviour
+public class Base : MonoBehaviour, IDestroyable<Base>
 {
-    [SerializeField] private ResourcesScanner _resourcesScaner;
+    private const int MinUnitsForBuilding = 2;
     
+    [SerializeField] private ResourcesScanner _resourcesScaner;
+
     [SerializeField] private UnitSpawner _unitSpawner;
     [SerializeField] private int _unitCost = 3;
-    
+    [SerializeField] private int _baseCost = 5;
+
     private List<Unit> _units = new List<Unit>();
 
     private List<Resources> _knownResources = new List<Resources>();
 
-    private int _resourcesValue = 9;
+    private int _resourcesValue;
 
+    private bool _isReadyForBuild = false;
+    
+    private Coroutine _currentCoroutine;
+    
+    private Vector3 _buildPosition;
+
+    public int ResourcesValue
+    {
+        get { return _resourcesValue; }
+        set
+        {
+            _resourcesValue = value;
+            ResourcesValueChanged?.Invoke(_resourcesValue);
+        }
+    }
+
+    private bool IsReadyForBuild
+    {
+        get
+        {
+            var result = _isReadyForBuild;
+            _isReadyForBuild = false;
+            return result;
+        }
+    }
+
+    public bool CanBuild => _units.Count >= MinUnitsForBuilding; 
+
+    public event Action<Base> Disabled;
     public event Action<int> ResourcesValueChanged;
 
-    public void Init()
+    public void Init(int resourcesValue, Vector3 position)
     {
-        // StartCoroutine(Scanning());
-        // StartCoroutine(Spawning());
+        _resourcesValue = resourcesValue;
+        transform.position = position;
+        
         AddListeners();
-        _resourcesScaner.StartScanning();
+        
+        _currentCoroutine = StartCoroutine(Spawning());
+        _resourcesScaner.Init();
     }
 
     public void PutResources(Resources resources)
@@ -33,10 +68,53 @@ public class Base : MonoBehaviour
         if (resources.Value < 0)
             throw new ArgumentOutOfRangeException();
 
-        _resourcesValue += resources.Value;
-        ResourcesValueChanged?.Invoke(_resourcesValue);
+        ResourcesValue += resources.Value;
+    }
+
+    public void StartBuilding(Vector2 position)
+    {
+        if (CanBuild == false)
+            return;
+        
+        _buildPosition = new Vector3(position.x, 0, position.y);
+        
+        StopCoroutine(_currentCoroutine);
+        _currentCoroutine = StartCoroutine(Building());
+    }
+
+    public Base Build(Vector3 position)
+    {
+        var baseSpawner = ServiceLocator.GetInstance<BaseSpawner>();
+        var newBase = baseSpawner.Spawn();
+        newBase.Init(0, position);
+        
+        ResourcesValue -= _baseCost;
+        
+        StopCoroutine(_currentCoroutine);
+        _currentCoroutine = StartCoroutine(Spawning());
+        
+        return newBase;
+    }
+
+    public void BindUnit(Unit unit)
+    {
+        _units.Add(unit);
+        unit.Released += OnUnitReleased;
     }
     
+    public void UnbindUnit(Unit unit)
+    {
+        _units.Remove(unit);
+        unit.Released -= OnUnitReleased;
+    }
+
+    private IEnumerator Building()
+    {
+        yield return new WaitUntil(() => _resourcesValue >= _baseCost);
+
+        _isReadyForBuild = true;
+    }
+
     private IEnumerator Spawning()
     {
         while (enabled)
@@ -46,27 +124,26 @@ public class Base : MonoBehaviour
             yield return new WaitForSeconds(_unitSpawner.Cooldown);
         }
     }
-    
+
     private void TrySpawn()
     {
-        if (_resourcesValue < _unitCost) 
+        if (_resourcesValue < _unitCost)
             return;
-        
-        _resourcesValue -= _unitCost;
-        ResourcesValueChanged?.Invoke(_resourcesValue);
+
+        ResourcesValue -= _unitCost; 
         _unitSpawner.Spawn().Init(this);
     }
 
     private void AddListeners()
     {
         _resourcesScaner.Scanned += OnScanned;
-        _unitSpawner.ObjectSpawned += OnUnitSpawned;
+        _unitSpawner.ObjectSpawned += BindUnit;
     }
 
     private void RemoveListeners()
     {
         _resourcesScaner.Scanned -= OnScanned;
-        _unitSpawner.ObjectSpawned -= OnUnitSpawned;
+        _unitSpawner.ObjectSpawned -= BindUnit;
 
         foreach (var unit in _units)
         {
@@ -79,21 +156,23 @@ public class Base : MonoBehaviour
         RemoveListeners();
     }
 
-    private void OnUnitSpawned(Unit unit)
-    {
-        _units.Add(unit);
-        unit.Released += OnUnitReleased;
-    }
-
     private void OnUnitReleased(Unit unit)
     {
-        StartCoroutine(CollectAvailableResources(unit));
+        if (IsReadyForBuild)
+            SendBuild(unit);
+        else
+            StartCoroutine(CollectAvailableResources(unit));
+    }
+
+    private void SendBuild(Unit unit)
+    {
+        unit.SendBuild(_buildPosition);
     }
 
     private IEnumerator CollectAvailableResources(Unit unit)
     {
         yield return new WaitUntil(() => _knownResources.Count(resources => resources.IsAvailable) > 0);
-        
+
         Resources collectingResources = _knownResources.FirstOrDefault(resources => resources.IsAvailable);
         unit.Collect(collectingResources);
     }
@@ -106,13 +185,5 @@ public class Base : MonoBehaviour
         _knownResources.AddRange(scannedResources
             .Where(resources => _knownResources.Contains(resources) == false)
             .ToList());
-    }
-}
-
-public class BaseState : IState
-{
-    public void Handle(Unit unit) //nu pzdc
-    {
-        throw new NotImplementedException();
     }
 }

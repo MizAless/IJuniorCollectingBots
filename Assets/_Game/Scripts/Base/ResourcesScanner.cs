@@ -6,12 +6,20 @@ using UnityEngine;
 public class ResourcesScanner : MonoBehaviour
 {
     [SerializeField] private float _scanDistance = 50f; 
-    [SerializeField] private ResourcesStorage _resourcesStorage;
     [SerializeField] private float _cooldown = 20f;
 
+    private ResourcesStorage _resourcesStorage;
+    
     public event Action<List<Resources>> Scanned;
 
-    public void StartScanning()
+    public void Init()
+    {
+        _resourcesStorage = ServiceLocator.GetInstance<ResourcesStorage>();
+        
+        StartScanning();
+    }
+    
+    private void StartScanning()
     {
         StartCoroutine(Scanning());
     }

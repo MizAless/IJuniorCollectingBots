@@ -269,3 +269,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _grabDistance: 2
   _giveDistance: 4
+  _buildDistance: 3

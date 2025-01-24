@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
+    private const int CastDistance = 100;
+    
     [SerializeField] private KeyCode _click = KeyCode.Mouse0;
-
-    [SerializeField] private GameObject _plane;
+    [SerializeField] private LayerMask _layerMask;
     
     public event Action<Vector2> Clicked;
     
@@ -16,10 +17,12 @@ public class PlayerInput : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, CastDistance,_layerMask))
             {
+                print(hit.collider.name);
+
                 Vector2 position = new Vector2(hit.point.x, hit.point.z);
-                
+
                 Clicked?.Invoke(position);
             }
         }
