@@ -8,12 +8,13 @@ public class BaseResourcesValueView : MonoBehaviour
     [SerializeField] private Text _text;
     
     private Base _gameBase;
-    private string _baseName;
+    private CameraTracker _cameraTracker;
     
-    public void Init(Base gameBase, string baseName)
+    public void Init(Base gameBase)
     {
         _gameBase = gameBase;
-        _baseName = baseName;
+        _cameraTracker = new CameraTracker(transform);
+        _cameraTracker.Init();
         UpdateTextView(_gameBase.ResourcesValue);
         AddListeners();
     }
@@ -35,6 +36,6 @@ public class BaseResourcesValueView : MonoBehaviour
 
     private void UpdateTextView(int value)
     {
-        _text.text = $"{_baseName} {ResourcesValue} {value}";
+        _text.text = $"{ResourcesValue} {value}";
     }
 }

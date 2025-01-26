@@ -11,6 +11,7 @@ public class GameInitializer : MonoBehaviour
     [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private FlagSetter _flagSetter;
     [SerializeField] private UICreator _uiCreator;
+    [SerializeField] private Camera _camera;
 
     private Base _base;
     
@@ -19,7 +20,6 @@ public class GameInitializer : MonoBehaviour
         InstallBindings();
         
         _flagSetter.Init();
-        _uiCreator.Init();
         _base = _baseSpawner.Spawn();
         _base.Init(_mainBaseStartResourcesValue, _mainBasePosition);
         _game.Init(_base);
@@ -34,5 +34,6 @@ public class GameInitializer : MonoBehaviour
         ServiceLocator.Register<PlayerInput>(_playerInput);
         ServiceLocator.Register<FlagSetter>(_flagSetter);
         ServiceLocator.Register<UICreator>(_uiCreator);
+        ServiceLocator.Register<Camera>(_camera);
     }
 }

@@ -1190,6 +1190,7 @@ MonoBehaviour:
   _playerInput: {fileID: 751708234}
   _flagSetter: {fileID: 751708236}
   _uiCreator: {fileID: 2021325966}
+  _camera: {fileID: 963194227}
 --- !u!4 &1155017002
 Transform:
   m_ObjectHideFlags: 0
@@ -1828,8 +1829,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d3297cdf9184af18a7524caed963165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseResourcesValueView: {fileID: 6814822646644912831, guid: 4613a894d9d13a948b40e218bb2c7c72, type: 3}
-  _container: {fileID: 607572765}
   _notification: {fileID: 452764493}
 --- !u!4 &2021325967
 Transform:

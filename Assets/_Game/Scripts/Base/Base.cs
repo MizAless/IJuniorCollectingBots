@@ -8,8 +8,9 @@ using UnityEngine;
 public class Base : MonoBehaviour, IDestroyable<Base>
 {
     private const int MinUnitsForBuilding = 2;
-    
+
     [SerializeField] private ResourcesScanner _resourcesScaner;
+    [SerializeField] private BaseResourcesValueView _resourcesValueView;
 
     [SerializeField] private UnitSpawner _unitSpawner;
     [SerializeField] private int _unitCost = 3;
@@ -22,15 +23,15 @@ public class Base : MonoBehaviour, IDestroyable<Base>
     private int _resourcesValue;
 
     private bool _isReadyForBuild = false;
-    
+
     private Coroutine _currentCoroutine;
-    
+
     private Vector3 _buildPosition;
 
     public int ResourcesValue
     {
-        get { return _resourcesValue; }
-        set
+        get => _resourcesValue;
+        private set
         {
             _resourcesValue = value;
             ResourcesValueChanged?.Invoke(_resourcesValue);
@@ -47,7 +48,7 @@ public class Base : MonoBehaviour, IDestroyable<Base>
         }
     }
 
-    public bool CanBuild => _units.Count >= MinUnitsForBuilding; 
+    public bool CanBuild => _units.Count >= MinUnitsForBuilding;
 
     public event Action<Base> Disabled;
     public event Action<int> ResourcesValueChanged;
@@ -56,10 +57,11 @@ public class Base : MonoBehaviour, IDestroyable<Base>
     {
         _resourcesValue = resourcesValue;
         transform.position = position;
-        
+        _resourcesValueView.Init(this);
+
         AddListeners();
-        
-        _currentCoroutine = StartCoroutine(Spawning());
+
+        _currentCoroutine = StartCoroutine(SpawnProcessing());
         _resourcesScaner.Init();
     }
 
@@ -75,11 +77,11 @@ public class Base : MonoBehaviour, IDestroyable<Base>
     {
         if (CanBuild == false)
             return;
-        
+
         _buildPosition = new Vector3(position.x, 0, position.y);
-        
+
         StopCoroutine(_currentCoroutine);
-        _currentCoroutine = StartCoroutine(Building());
+        _currentCoroutine = StartCoroutine(BuildProcessing());
     }
 
     public Base Build(Vector3 position)
@@ -87,12 +89,12 @@ public class Base : MonoBehaviour, IDestroyable<Base>
         var baseSpawner = ServiceLocator.GetInstance<BaseSpawner>();
         var newBase = baseSpawner.Spawn();
         newBase.Init(0, position);
-        
+
         ResourcesValue -= _baseCost;
-        
+
         StopCoroutine(_currentCoroutine);
-        _currentCoroutine = StartCoroutine(Spawning());
-        
+        _currentCoroutine = StartCoroutine(SpawnProcessing());
+
         return newBase;
     }
 
@@ -101,28 +103,11 @@ public class Base : MonoBehaviour, IDestroyable<Base>
         _units.Add(unit);
         unit.Released += OnUnitReleased;
     }
-    
+
     public void UnbindUnit(Unit unit)
     {
         _units.Remove(unit);
         unit.Released -= OnUnitReleased;
-    }
-
-    private IEnumerator Building()
-    {
-        yield return new WaitUntil(() => _resourcesValue >= _baseCost);
-
-        _isReadyForBuild = true;
-    }
-
-    private IEnumerator Spawning()
-    {
-        while (enabled)
-        {
-            TrySpawn();
-
-            yield return new WaitForSeconds(_unitSpawner.Cooldown);
-        }
     }
 
     private void TrySpawn()
@@ -130,8 +115,11 @@ public class Base : MonoBehaviour, IDestroyable<Base>
         if (_resourcesValue < _unitCost)
             return;
 
-        ResourcesValue -= _unitCost; 
-        _unitSpawner.Spawn().Init(this);
+        ResourcesValue -= _unitCost;
+
+        _unitSpawner
+            .Spawn()
+            .Init(this);
     }
 
     private void AddListeners()
@@ -155,13 +143,22 @@ public class Base : MonoBehaviour, IDestroyable<Base>
     {
         RemoveListeners();
     }
-
-    private void OnUnitReleased(Unit unit)
+    
+    private IEnumerator BuildProcessing()
     {
-        if (IsReadyForBuild)
-            SendBuild(unit);
-        else
-            StartCoroutine(CollectAvailableResources(unit));
+        yield return new WaitUntil(() => _resourcesValue >= _baseCost);
+
+        _isReadyForBuild = true;
+    }
+
+    private IEnumerator SpawnProcessing()
+    {
+        while (enabled)
+        {
+            TrySpawn();
+
+            yield return new WaitForSeconds(_unitSpawner.Cooldown);
+        }
     }
 
     private void SendBuild(Unit unit)
@@ -175,6 +172,14 @@ public class Base : MonoBehaviour, IDestroyable<Base>
 
         Resources collectingResources = _knownResources.FirstOrDefault(resources => resources.IsAvailable);
         unit.Collect(collectingResources);
+    }
+
+    private void OnUnitReleased(Unit unit)
+    {
+        if (IsReadyForBuild)
+            SendBuild(unit);
+        else
+            StartCoroutine(CollectAvailableResources(unit));
     }
 
     private void OnScanned(List<Resources> scannedResources)
